@@ -25,4 +25,7 @@ public class Car {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "car_id")
     private List<Part> parts;
+
+    @Transient
+    private Double partsValue;
 }

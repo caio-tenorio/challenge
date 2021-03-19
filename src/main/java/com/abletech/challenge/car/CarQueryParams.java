@@ -2,15 +2,25 @@ package com.abletech.challenge.car;
 
 import com.abletech.challenge.paging.QueryParams;
 import com.querydsl.core.BooleanBuilder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class CarQueryParams extends QueryParams {
+    // Pre made filters
+    public static final String ORDER_BY_PART_VALUE = "orderByPartsValue";
+    public static final List<String> PRE_MADE_FILTERS = List.of(ORDER_BY_PART_VALUE);
+
+    // Field reference
     private static final String BRAND = "brand";
     private static final String MODEL = "model";
     private static final String YEAR = "year";
@@ -18,6 +28,8 @@ public class CarQueryParams extends QueryParams {
     private List<String> brands;
     private List<String> models;
     private List<Integer> years; //TODO: make this a range
+
+    private String preMadeFilter;
 
     @Override
     public BooleanBuilder getPredicate() {
@@ -42,7 +54,6 @@ public class CarQueryParams extends QueryParams {
     @Override
     public Sort getSorting() {
         QCar qCar = QCar.car;
-
         Sort defaultSort = Sort.by(qCar.id.getMetadata().getName());
 
         if (getSort() == null) {
