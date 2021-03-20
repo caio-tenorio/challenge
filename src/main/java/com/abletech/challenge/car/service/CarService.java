@@ -1,6 +1,7 @@
 package com.abletech.challenge.car.service;
 
 import com.abletech.challenge.car.Car;
+import com.abletech.challenge.car.CarModelDamaged;
 import com.abletech.challenge.car.CarQueryParams;
 import com.abletech.challenge.car.dal.CarRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,5 +46,9 @@ public class CarService {
 
     public void bulkInsert(List<Car> cars) {
         carRepository.saveAll(cars);
+    }
+
+    public List<CarModelDamaged> getMostDamagedModels() {
+        return carRepository.getMostDamagedModels();
     }
 }

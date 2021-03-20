@@ -1,6 +1,7 @@
 package com.abletech.challenge.car.rest;
 
 import com.abletech.challenge.car.Car;
+import com.abletech.challenge.car.CarModelDamaged;
 import com.abletech.challenge.car.CarQueryParams;
 import com.abletech.challenge.car.service.CarService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,12 @@ public class CarController {
         log.info("Getting list of cars");
         Page<Car> cars = carService.findAll(params);
         return cars.map(CarDto::of);
+    }
+
+    @GetMapping("/model/most-damaged")
+    public List<CarModelDamaged> getMostDamagedModels() {
+        log.info("Getting most damaged models");
+        return carService.getMostDamagedModels();
     }
 
     @PostMapping
