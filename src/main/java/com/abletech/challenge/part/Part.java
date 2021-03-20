@@ -20,8 +20,16 @@ public class Part {
 
     private String name;
     private Long value;
+
     private Boolean damaged;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Car car;
+
+    public Part(Long id, String name, Long value, Boolean damaged) {
+        this.id = id;
+        this.name = name;
+        this.value = value;
+        this.damaged = damaged;
+    }
 }

@@ -61,7 +61,7 @@ public class CarTests {
         CarQueryParams carQueryParams = new CarQueryParams();
         BooleanBuilder query = carQueryParams.getPredicate();
         Pageable pageable = carQueryParams.getPageable();
-;
+
         Mockito.when(carRepository.findAll(query, pageable)).thenReturn(expectedResponse);
 
         Page<Car> response = carService.findAll(carQueryParams);
