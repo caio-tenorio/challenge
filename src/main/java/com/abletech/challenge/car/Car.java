@@ -28,4 +28,11 @@ public class Car {
 
     @Transient
     private Double partsValue;
+
+    public Car(Long id, String brand, String model, Integer year) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+    }
 }
