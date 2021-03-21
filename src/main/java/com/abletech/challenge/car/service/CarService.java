@@ -5,6 +5,7 @@ import com.abletech.challenge.car.CarModelDamaged;
 import com.abletech.challenge.car.CarQueryParams;
 import com.abletech.challenge.car.dal.CarRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.data.domain.Page;
@@ -32,8 +33,12 @@ public class CarService {
 
     private Page<Car> getPreMadeFilterResponse(CarQueryParams params) {
         checkPreMadeFilter(params);
-        if (CarQueryParams.ORDER_BY_PART_VALUE.equals(params.getPreMadeFilter())) {
+        if (CarQueryParams.ORDER_BY_PARTS_VALUE.equals(params.getPreMadeFilter())) {
             return carRepository.findAllOrderByPartsValueSum(params.getPageable());
+        }
+
+        if (CarQueryParams.ORDER_BY_DAMAGED_PARTS_VALUE.equals(params.getPreMadeFilter())) {
+            return carRepository.findAllByHasDamagedPartsOrderBySumDamagedPartsValue(params.getPageable());
         }
 
         return carRepository.findAll(params.getPredicate(), params.getPageable());
@@ -45,6 +50,7 @@ public class CarService {
     }
 
     public void bulkInsert(List<Car> cars) {
+        Validate.isTrue(CollectionUtils.isNotEmpty(cars), "Cars can't be empty");
         carRepository.saveAll(cars);
     }
 

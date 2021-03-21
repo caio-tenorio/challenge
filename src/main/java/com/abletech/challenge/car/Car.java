@@ -26,9 +26,6 @@ public class Car {
     @JoinColumn(name = "car_id")
     private List<Part> parts;
 
-    @Transient
-    private Double partsValue;
-
     public Car(Long id, String brand, String model, Integer year) {
         this.id = id;
         this.brand = brand;

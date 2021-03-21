@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Sort;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.ASC;
@@ -17,8 +16,9 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 @Data
 public class CarQueryParams extends QueryParams {
     // Pre made filters
-    public static final String ORDER_BY_PART_VALUE = "orderByPartsValue";
-    public static final List<String> PRE_MADE_FILTERS = List.of(ORDER_BY_PART_VALUE);
+    public static final String ORDER_BY_DAMAGED_PARTS_VALUE = "orderByDamagedParts";
+    public static final String ORDER_BY_PARTS_VALUE = "orderByPartsValue";
+    public static final List<String> PRE_MADE_FILTERS = List.of(ORDER_BY_PARTS_VALUE, ORDER_BY_DAMAGED_PARTS_VALUE);
 
     // Field reference
     private static final String BRAND = "brand";
@@ -27,7 +27,7 @@ public class CarQueryParams extends QueryParams {
 
     private List<String> brands;
     private List<String> models;
-    private List<Integer> years; //TODO: make this a range
+    private List<Integer> years;
 
     private String preMadeFilter;
 

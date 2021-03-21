@@ -2,21 +2,26 @@ package com.abletech.challenge.part;
 
 import com.abletech.challenge.paging.QueryParams;
 import com.querydsl.core.BooleanBuilder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Sort;
 
-import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class PartQueryParams extends QueryParams {
+    // Field reference
     private static final String NAME = "name";
     private static final String VALUE = "value";
     private static final String DAMAGED = "damaged";
 
     private String name;
-    private List<Long> value; //TODO: make this a range
+    private Long startValue;
+    private Long endValue;
     private Boolean damaged;
 
     @Override
@@ -31,6 +36,14 @@ public class PartQueryParams extends QueryParams {
 
         if (damaged != null) {
             query.and(qPart.damaged.eq(damaged));
+        }
+
+        if (startValue != null) {
+            query.and(qPart.value.gt(startValue));
+        }
+
+        if (endValue != null) {
+            query.and(qPart.value.lt(endValue));
         }
 
         return query;

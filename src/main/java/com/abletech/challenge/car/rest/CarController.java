@@ -6,8 +6,6 @@ import com.abletech.challenge.car.CarQueryParams;
 import com.abletech.challenge.car.service.CarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.Validate;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +35,6 @@ public class CarController {
     @PostMapping
     public void bulkInsert(@RequestBody List<CarDto> cars) {
         log.info("Inserting cars list");
-        Validate.isTrue(CollectionUtils.isNotEmpty(cars), "Cars can't be empty");
         carService.bulkInsert(cars.stream().map(CarDto::to).collect(Collectors.toList()));
     }
 }
