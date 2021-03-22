@@ -32,7 +32,7 @@ public class CarService {
     }
 
     private Page<Car> getPreMadeFilterResponse(CarQueryParams params) {
-        checkPreMadeFilter(params);
+        validatePreMadeFilter(params);
         if (CarQueryParams.ORDER_BY_PARTS_VALUE.equals(params.getPreMadeFilter())) {
             return carRepository.findAllOrderByPartsValueSum(params.getPageable());
         }
@@ -44,7 +44,7 @@ public class CarService {
         return carRepository.findAll(params.getPredicate(), params.getPageable());
     }
 
-    private void checkPreMadeFilter(CarQueryParams params) {
+    private void validatePreMadeFilter(CarQueryParams params) {
         Validate.isTrue(StringUtils.isNotBlank(params.getPreMadeFilter()), "Pre made filter is null");
         Validate.isTrue(CarQueryParams.PRE_MADE_FILTERS.contains(params.getPreMadeFilter()), "Could not find pre made filter");
     }
