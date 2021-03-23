@@ -21,7 +21,7 @@ public class PartController {
     private final PartService partService;
 
     @GetMapping
-    public Page<PartDto> listParts(PartQueryParams params) {
+    public Page<PartDto> pagedParts(PartQueryParams params) {
         log.info("Getting list of cars");
         Page<Part> parts = partService.findAll(params);
         return parts.map(PartDto::of);

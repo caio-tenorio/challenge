@@ -5,7 +5,6 @@ import com.abletech.challenge.car.CarModelDamaged;
 import com.abletech.challenge.car.CarQueryParams;
 import com.abletech.challenge.car.dal.CarRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.data.domain.Page;
@@ -45,12 +44,12 @@ public class CarService {
     }
 
     private void validatePreMadeFilter(CarQueryParams params) {
-        Validate.isTrue(StringUtils.isNotBlank(params.getPreMadeFilter()), "Pre made filter is null");
+        Validate.notBlank(params.getPreMadeFilter(), "Pre made filter is null");
         Validate.isTrue(CarQueryParams.PRE_MADE_FILTERS.contains(params.getPreMadeFilter()), "Could not find pre made filter");
     }
 
     public void bulkInsert(List<Car> cars) {
-        Validate.isTrue(CollectionUtils.isNotEmpty(cars), "Cars can't be empty");
+        Validate.notEmpty(cars, "Cars can't be empty");
         carRepository.saveAll(cars);
     }
 
